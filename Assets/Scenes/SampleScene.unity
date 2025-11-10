@@ -4827,6 +4827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   animator: {fileID: 0}
+  playerCamera: {fileID: 0}
 --- !u!50 &814316781
 Rigidbody2D:
   serializedVersion: 4

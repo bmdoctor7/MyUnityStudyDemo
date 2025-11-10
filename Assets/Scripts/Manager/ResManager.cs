@@ -25,7 +25,7 @@ public class ResManager : SingletonBase<ResManager>
     }
 
     /// <summary>
-    /// 异步加载资源 —— 调用后物体需要等待一段时间才会被加载，所以要在方法中将物体传出去
+    /// 异步加载资源 —— 调用后物体需要等待一段时间才会被加载，所以要在方法中将物体传出去（lambda表达式）
     /// </summary>
     /// <param name="name"></param>
     /// <param name="callback"></param>
@@ -38,7 +38,7 @@ public class ResManager : SingletonBase<ResManager>
     {
         ResourceRequest req = Resources.LoadAsync<T>(name);
         yield return req;
-        
+        //如果是预制体的话需要实例化
         if(req.asset is GameObject)
         {
             T res = GameObject.Instantiate(req.asset) as T;
