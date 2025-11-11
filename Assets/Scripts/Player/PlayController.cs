@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,10 +11,12 @@ public class PlayController : MonoBehaviour
     public Animator animator;
     public Camera playerCamera;
 
+    
+
     private void Start()
     {
         animator = GetComponent<Animator>();
-        if (playerCamera == null)
+        if (!playerCamera)
         {
             playerCamera = Camera.main;
         }
@@ -41,7 +44,12 @@ public class PlayController : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
         
         playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        
+        
     }
+    
+    
+    
     
     private void OnTriggerEnter2D(Collider2D collision)
     {

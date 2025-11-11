@@ -14,14 +14,21 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler
     public TextMeshProUGUI countText;
 
 
-    public void SetData(SlotData data)
+    public void SetData(SlotData newData)
     {
-        this.data = data;
+        this.data = newData;
+        if (data != null)
+        {
+            //事件监听，只要数据变化就更新UI
+            data.AddListener(OnDataChange);
+            UpdateUI();
+        }
+        else
+        {
+            ClearUI();
+        }
         
-        //事件监听，只要数据变化就更新UI
-        data.AddListener(OnDataChange);
         
-        UpdateUI();
     }
     //UI更新事件
     private void OnDataChange()
@@ -31,7 +38,7 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler
     //UI更新
     private void UpdateUI()
     {
-        if (data.item == null)
+        if (!data.item)
         {
             iconImage.enabled = false;
             countText.text = "";
@@ -43,7 +50,11 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler
             countText.text = data.count >= 1 ? data.count.ToString() : "";
         }
     }
-    
+    private void ClearUI()
+    {
+        iconImage.enabled = false;
+        countText.text = "";
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         ItemMoveHandler.Instance.OnSlotClick(this);

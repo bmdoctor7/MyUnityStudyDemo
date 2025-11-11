@@ -1853,7 +1853,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: inventory_chopped_83
+      name: LoadBtn
       rect:
         serializedVersion: 2
         x: 641
@@ -1936,6 +1936,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: SaveBtn
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ed57aa74cccfb4a834e22abc220aab
+      internalID: -1690011355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1951,6 +1972,8 @@ TextureImporter:
       Bg_left: 41041254
       Bg_right: -384121202
       CloseButton: 1066337239
+      LoadBtn: 1984483787
+      SaveBtn: -1690011355
       Slot: -352106182
       inventory_chopped_10: -680164758
       inventory_chopped_11: -1048933155
@@ -2028,7 +2051,6 @@ TextureImporter:
       inventory_chopped_80: -552496749
       inventory_chopped_81: 919155378
       inventory_chopped_82: -465470646
-      inventory_chopped_83: 1984483787
       inventory_chopped_84: 813625117
       inventory_chopped_85: 100220990
       inventory_chopped_86: -1948294575

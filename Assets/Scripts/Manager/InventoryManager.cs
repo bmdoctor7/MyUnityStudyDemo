@@ -12,9 +12,6 @@ public class InventoryManager : MonoBehaviour
         Init();
     }
     
-    
-    
-    
     private Dictionary<ItemType,ItemData> itemDataDic = new Dictionary<ItemType, ItemData>();
 
     [HideInInspector]
@@ -53,7 +50,7 @@ public class InventoryManager : MonoBehaviour
     public void AddToBackpack(ItemType type)
     {
         ItemData item = GetItemData(type);
-        if (item == null) return;
+        if (!item) return;
 
         foreach(SlotData slotData in backpack.slotsList)
         {

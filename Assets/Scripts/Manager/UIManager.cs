@@ -12,10 +12,6 @@ public enum E_UILayer
     Sys
 }
 
-
-
-
-
 public class UIManager : SingletonBase<UIManager>
 {
 
@@ -81,6 +77,10 @@ public class UIManager : SingletonBase<UIManager>
         });
     }
 
+    /// <summary>
+    /// 销毁面板
+    /// </summary>
+    /// <param name="panelName"></param>
     public void HidePanel(string panelName)
     {
         if (panelDic.ContainsKey(panelName))
@@ -90,9 +90,17 @@ public class UIManager : SingletonBase<UIManager>
             panelDic.Remove(panelName);
         }
     }
-    
-    
-    
+
+
+    /// <summary>
+    /// 失活面板
+    /// </summary>
+    /// <param name="panelName"></param>
+    public void ClosePanel(string panelName)
+    {
+        if (panelDic.ContainsKey(panelName))
+            panelDic[panelName].HideMe();
+    }
     
     
     

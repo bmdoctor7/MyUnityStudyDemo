@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ToolBar
   m_EditorClassIdentifier: 
   slotsList:
-  - item: {fileID: 11400000, guid: 0aecccbae15164c4889cd22247eaae19, type: 2}
-    count: 7
-  - item: {fileID: 11400000, guid: d4d1389efb89fe64fb41a23f45545fc6, type: 2}
-    count: 1
+  - item: {fileID: 0}
+    count: 0
+  - item: {fileID: 0}
+    count: 0
   - item: {fileID: 0}
     count: 0
   - item: {fileID: 0}
