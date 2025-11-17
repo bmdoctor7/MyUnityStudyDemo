@@ -2336,7 +2336,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: char1_106
+      name: enemy1
       rect:
         serializedVersion: 2
         x: 70
@@ -4770,7 +4770,6 @@ TextureImporter:
       char1_103: -1625427337
       char1_104: -118787778
       char1_105: 1732350888
-      char1_106: 1879996051
       char1_107: -1464055804
       char1_108: -432662162
       char1_109: 102190246
@@ -4982,6 +4981,7 @@ TextureImporter:
       char1_97: 936134493
       char1_98: 1629452039
       char1_99: 655847668
+      enemy1: 1879996051
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

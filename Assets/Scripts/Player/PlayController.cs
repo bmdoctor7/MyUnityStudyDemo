@@ -10,8 +10,12 @@ public class PlayController : MonoBehaviour
     public float speed = 5f;
     public Animator animator;
     public Camera playerCamera;
-
     
+    public float maxHealth = 100f;
+    public float currentHealth = 100f;
+
+    public float maxExp = 100f;
+    public float currentExp = 0f;
 
     private void Start()
     {
@@ -72,7 +76,14 @@ public class PlayController : MonoBehaviour
     }
     
     
-    
+    public virtual void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            //TODO: 回到当前波次开始前
+        }
+    }
     
     
     
