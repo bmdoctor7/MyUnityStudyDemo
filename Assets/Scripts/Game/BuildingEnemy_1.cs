@@ -67,6 +67,7 @@ public class BuildingEnemy_1 : EnemyBase
             // 每个敌人独立冷却
             if (Time.time - _lastAttackTime >= attackRange )
             {
+                if(!obj) return;
                 var tarBuilding = obj.gameObject.GetComponent<BuildingBase>();
                 if (tarBuilding && tarBuilding.currentHealth > 0)
                 {

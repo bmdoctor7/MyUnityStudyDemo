@@ -43,11 +43,11 @@ public class PlayerEnemy_1 : EnemyBase
     // 敌人被子弹击中
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Bullet"))
-        {
-            TakeDamage(25);
-            Destroy(other.gameObject);
-        }
+        // if (other.CompareTag("Bullet"))
+        // {
+        //     TakeDamage(25);
+        //     Destroy(other.gameObject);
+        // }
         if (other.CompareTag("Player"))
         {
             // 每次开始接触玩家时，重置前摇倒计时
