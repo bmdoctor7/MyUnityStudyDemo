@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6d40b8ec117d334e98451f5bf340937, type: 3}
+  m_Name: Building_Attack
+  m_EditorClassIdentifier: 
+  BuildingId: 2
+  DisplayName: Arrow
+  Description: Attack
+  Cost: 19
+  Prefab: {fileID: 7630774842993571274, guid: e911da28c00226c46aaa524eb5a0f803, type: 3}
+  Icon: {fileID: 21300000, guid: bbcb3fc2b689bd145b5bbb92251fcf6d, type: 3}

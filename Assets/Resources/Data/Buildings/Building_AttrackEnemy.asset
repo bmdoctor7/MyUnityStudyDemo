@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6d40b8ec117d334e98451f5bf340937, type: 3}
+  m_Name: Building_AttrackEnemy
+  m_EditorClassIdentifier: 
+  BuildingId: 1
+  DisplayName: Attrack
+  Description: 'Only it livs, enemies will come
+
+
+'
+  Cost: 77
+  Prefab: {fileID: 8186772448982216714, guid: 8f1bf24ce19137b45b3bf4a37ad7c640, type: 3}
+  Icon: {fileID: 21300000, guid: 8ae475ec7a695754eabaef584a6f9978, type: 3}

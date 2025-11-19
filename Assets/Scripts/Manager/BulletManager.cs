@@ -44,7 +44,7 @@ public class BulletManager : SingletonMonoBase<BulletManager>
     // 生成
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
     {
-        if (!prefab) throw new ArgumentNullException(nameof(prefab));
+        if (!prefab) Debug.Log("BulletManager: Spawn called with null prefab!");
 
         var pool = GetOrCreatePool(prefab);
         var go = pool.Get();
