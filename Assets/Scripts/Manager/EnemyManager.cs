@@ -66,7 +66,11 @@ public class EnemyManager : SingletonMonoBase<EnemyManager>
             var pool = new ObjectPool<GameObject>(
                 createFunc: () => CreateEnemy(prefab),
                 actionOnGet: (obj) => OnGetEnemy(obj),
-                actionOnRelease: (obj) => OnReleaseEnemy(obj),
+                actionOnRelease: (obj) =>
+                {
+                    if(obj)
+                        OnReleaseEnemy(obj);
+                },
                 actionOnDestroy: (obj) => Destroy(obj),
                 defaultCapacity: 10,
                 maxSize: maxPoolSize
@@ -109,7 +113,8 @@ public class EnemyManager : SingletonMonoBase<EnemyManager>
         }
         
         enemy.SetActive(true);
-        _activeEnemies.Add(enemy);
+        if (!_activeEnemies.Contains(enemy))
+            _activeEnemies.Add(enemy);
     }
     
     void OnReleaseEnemy(GameObject enemy)
@@ -144,13 +149,19 @@ public class EnemyManager : SingletonMonoBase<EnemyManager>
     // 返回敌人到对象池
     public void ReturnEnemy(GameObject enemy, GameObject originalPrefab)
     {
+        // 已经被回收或不在管理列表中，直接忽略，防止重复 Release
+        if (!enemy || !_activeEnemies.Contains(enemy))
+            return;
+        
         if (_enemyPools.TryGetValue(originalPrefab, out var pool))
         {
             pool.Release(enemy);
         }
         else
         {
+            // 无对应池，销毁并同步维护列表
             Destroy(enemy);
+            _activeEnemies.Remove(enemy);
         }
     }
 

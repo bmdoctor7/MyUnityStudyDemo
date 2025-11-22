@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +48,7 @@ public class Bullet_1 : BulletBase
         {
             if (TargetLost())
             {
-                Debug.Log("Target lost1");
+                //Debug.Log("Target lost1");
                 _mode = FlightMode.Straight;
                 if (_moveDir.sqrMagnitude < 1e-6f)
                     _moveDir = DirFromZRotation(transform.eulerAngles.z); // 兜底
@@ -100,12 +101,12 @@ public class Bullet_1 : BulletBase
         if (!other) return;
 
         // 命中任意敌人即回收
-        if (other.CompareTag(enemyTag))
+        if (other.gameObject.CompareTag(enemyTag))
         {
-            // Debug.Log("zc");
-            other.GetComponent<EnemyBase>().TakeDamage(damage);
+            //Debug.Log("zc");
+            other.gameObject.GetComponent<EnemyBase>().TakeDamage(damage);
             _life = 0;
-            BulletManager.ReleaseBullet(gameObject);
+            BulletManager.ReleaseBullet(this.gameObject);
         }
     }
 }

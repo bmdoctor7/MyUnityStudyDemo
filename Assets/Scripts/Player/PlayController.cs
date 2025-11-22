@@ -14,8 +14,9 @@ public class PlayController : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth = 100f;
 
-    public float maxExp = 100f;
-    public float currentExp = 0f;
+    public int level = 1;
+    public float currentMaxExp = 100f;
+    public float currentExp = 77f;
 
     private void Start()
     {
@@ -84,9 +85,12 @@ public class PlayController : MonoBehaviour
             //TODO: 回到当前波次开始前
         }
     }
-    
-    
-    
+
+
+    public float GetNextLevelExp()
+    {
+        return (currentMaxExp*level*1.2f) + 77f ;
+    }
     
     
     

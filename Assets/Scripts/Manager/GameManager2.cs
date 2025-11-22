@@ -26,6 +26,6 @@ public class GameManager2 : SingletonMonoBase<GameManager2>
         {
             buildingsList.Add(building);
         }
-        EnemyManager.Instance.SpawnZonesByTag("Spawn1");
+        //EnemyManager.Instance.SpawnZonesByTag("Spawn1");
     }
 }

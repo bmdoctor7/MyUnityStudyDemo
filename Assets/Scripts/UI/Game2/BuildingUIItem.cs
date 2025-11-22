@@ -27,7 +27,7 @@ public class BuildingUIItem : MonoBehaviour , IPointerClickHandler,IBeginDragHan
     
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (data == null) return;
+        if (!data) return;
         if (!EconomyManager.Instance.CanAfford(data.Cost)) return;
 
         if (Mathf.Approximately(Time.timeScale, 1f)) TimeScaleController.Instance.RequestSlow();

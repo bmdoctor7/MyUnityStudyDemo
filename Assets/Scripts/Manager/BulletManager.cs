@@ -41,7 +41,7 @@ public class BulletManager : SingletonMonoBase<BulletManager>
     public static void ReleaseBullet(GameObject instance)
         => Instance.Despawn(instance);
 
-    // 生成
+    // 生成子弹
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
     {
         if (!prefab) Debug.Log("BulletManager: Spawn called with null prefab!");
@@ -49,14 +49,20 @@ public class BulletManager : SingletonMonoBase<BulletManager>
         var pool = GetOrCreatePool(prefab);
         var go = pool.Get();
 
+        if (!go)
+        {
+            //Debug.LogWarning("BulletManager.Spawn: 从对象池取得的实例为 null, 将尝试重新实例化一个.");
+            // 兜底: 直接新建 (不进池), 防止调用方逻辑中断
+            var fallback = Instantiate(prefab, position, rotation);
+            fallback.transform.SetParent(parent ? parent : transform, false);
+            fallback.transform.SetPositionAndRotation(position, rotation);
+            return fallback;
+        }
+        
         // 变换与父级
         var t = go.transform;
-        t.SetParent(parent != null ? parent : transform, false);
+        t.SetParent(parent ? parent : transform, false);
         t.SetPositionAndRotation(position, rotation);
-
-        // 可选: 子弹重置
-        // if (go.TryGetComponent<IPooledBullet>(out var pooled))
-        //     pooled.OnSpawn();
 
         return go;
     }
@@ -64,21 +70,19 @@ public class BulletManager : SingletonMonoBase<BulletManager>
     // 回收
     public void Despawn(GameObject instance)
     {
-        if (instance == null) return;
+        if (!instance) return;
 
         if (_instanceToPool.TryGetValue(instance, out var pool))
         {
-            // 可选: 子弹回收前回调
-            // if (instance.TryGetComponent<IPooledBullet>(out var pooled))
-            //     pooled.OnDespawn();
-
+            //Debug.Log("BulletManager: Despawn called!");
             pool.Release(instance);
         }
-        else
-        {
-            // 未受管实例, 直接销毁以避免泄漏
-            Destroy(instance);
-        }
+        // else
+        // {
+        //     // 未受管实例, 直接销毁以避免泄漏
+        //     Debug.LogWarning("BulletManager.Despawn: 非池管理对象被回收, 执行 Destroy.");
+        //     Destroy(instance);
+        // }
     }
 
     // 预热若干个对象到池中
@@ -90,6 +94,7 @@ public class BulletManager : SingletonMonoBase<BulletManager>
         foreach (var go in temp) pool.Release(go);
     }
 
+    // 获取或创建指定 prefab 的对象池
     private ObjectPool<GameObject> GetOrCreatePool(GameObject prefab, int defaultCapacity = 10, int maxSize = 100)
     {
         if (_pools.TryGetValue(prefab, out var pool)) return pool;
@@ -105,16 +110,22 @@ public class BulletManager : SingletonMonoBase<BulletManager>
             },
             actionOnGet: go =>
             {
-                go.SetActive(true);
+                if(go)
+                    go.SetActive(true);
             },
             actionOnRelease: go =>
             {
-                go.SetActive(false);
+                if(go)
+                    go.SetActive(false);
+                else
+                {
+                    Debug.Log("BulletManager: Releasing " + go.name);
+                }
             },
             actionOnDestroy: go =>
             {
                 _instanceToPool.Remove(go);
-                Destroy(go);
+                //Destroy(go);
             },
             collectionCheck: true,
             defaultCapacity: defaultCapacity,
