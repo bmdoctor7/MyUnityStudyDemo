@@ -80,6 +80,11 @@ public class PlayerEnemy_1 : EnemyBase
     //     }
     // }
 
+    public override void Die()
+    {
+        base.Die();
+    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Building
   - Enemy
+  - EXP
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ public class BuildingEnemy_1 : EnemyBase
     public float tattackFirstRange;
     private bool isInTrigger;
     public bool isMove = true;
-    public GameObject obj;
+    public GameObject obj; // 目标建筑物
 
     private void Start()
     {

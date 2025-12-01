@@ -13,6 +13,7 @@ public class EnemyBase : MonoBehaviour
     public float attackRange = 1.5f;
     public float attackFirstRange = 0f;
 
+    public GameObject expPrefab;
     public GameObject originalPrefab;
     
     public virtual void  MoveTowardsObject(string ObjectTag)
@@ -40,12 +41,25 @@ public class EnemyBase : MonoBehaviour
     {
         if (EnemyManager.Instance && originalPrefab)
         {
+            //Debug.Log("Die!");
             EnemyManager.Instance.ReturnEnemy(gameObject, originalPrefab);
         }
         else
         {
             gameObject.SetActive(false);
         }
+        
+        // 生成掉落的经验值
+        if (Exp_Pool.Instance)
+        {
+            Exp_Pool.Instance.expPrefab = this.expPrefab; // 设置掉落的经验值预制体
+            GameObject exp = Exp_Pool.Instance.GetExp();
+            if (exp)
+            {
+                exp.transform.position = transform.position;
+            }
+        }
+        
     }
     
     

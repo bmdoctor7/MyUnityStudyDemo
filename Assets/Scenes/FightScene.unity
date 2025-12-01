@@ -3650,6 +3650,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2069324644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2069324646}
+  - component: {fileID: 2069324645}
+  m_Layer: 0
+  m_Name: Exp_Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2069324645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069324644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4591c7e9fa88c4418d20fa35d14133c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expPrefab: {fileID: 0}
+  maxPoolSize: 50
+--- !u!4 &2069324646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069324644}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.9688435, y: 0.20859723, z: -0.06601801}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2117940007
 GameObject:
   m_ObjectHideFlags: 0
@@ -3884,11 +3930,12 @@ SceneRoots:
   - {fileID: 3275546027385973604}
   - {fileID: 2407749900884038857}
   - {fileID: 205840600}
-  - {fileID: 114658511}
-  - {fileID: 135369989}
-  - {fileID: 777545908}
   - {fileID: 2053406129}
   - {fileID: 82179718}
   - {fileID: 233482072}
   - {fileID: 1260939876}
   - {fileID: 1299737582}
+  - {fileID: 114658511}
+  - {fileID: 135369989}
+  - {fileID: 777545908}
+  - {fileID: 2069324646}

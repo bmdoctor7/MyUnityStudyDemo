@@ -106,6 +106,7 @@ MonoBehaviour:
   attackDamage: 260
   attackRange: 1.4
   attackFirstRange: 1.4
+  expPrefab: {fileID: 7021043624109119697, guid: e53e3cf8d6f11214e9ecf2d035f47074, type: 3}
   originalPrefab: {fileID: 8395447430037345385}
   tattackFirstRange: 1.4
 --- !u!70 &7773098747998974137

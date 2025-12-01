@@ -16,7 +16,7 @@ public class PlayController : MonoBehaviour
 
     public int level = 1;
     public float currentMaxExp = 100f;
-    public float currentExp = 77f;
+    public float currentExp = 0f;
 
     private void Start()
     {
@@ -50,12 +50,13 @@ public class PlayController : MonoBehaviour
         
         playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         
-        
+        if(currentExp>= currentMaxExp)
+        {
+            LevelUp();
+        }
     }
-    
-    
-    
-    
+
+    #region Game1
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Pickable")
@@ -75,7 +76,7 @@ public class PlayController : MonoBehaviour
             go.GetComponent<Rigidbody2D>().AddForce(direction*3);
         }
     }
-    
+    #endregion
     
     public virtual void TakeDamage(float damage)
     {
@@ -86,13 +87,19 @@ public class PlayController : MonoBehaviour
         }
     }
 
-
+    #region Game2
     public float GetNextLevelExp()
     {
         return (currentMaxExp*level*1.2f) + 77f ;
     }
+
+    public void LevelUp()
+    {
+        currentExp = currentExp - currentMaxExp;
+        currentMaxExp = GetNextLevelExp();
+        level += 1;
+    }
     
-    
-    
+    #endregion
     
 }

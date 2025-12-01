@@ -21,7 +21,7 @@ public class ExpControl : MonoBehaviour
     {
         if (!playController) return;
         float currentExp = playController.currentExp;
-        float nextLevelExp = playController.GetNextLevelExp();
+        float nextLevelExp = playController.currentMaxExp;
         expText.text = $"{currentExp} / {nextLevelExp}";
         expSlider.value = (float)currentExp / nextLevelExp;
     }
