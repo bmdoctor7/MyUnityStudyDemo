@@ -48,7 +48,7 @@ public class PlayController : MonoBehaviour
         
         transform.Translate(direction * speed * Time.deltaTime);
         
-        playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        //playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         
         if(currentExp>= currentMaxExp)
         {
