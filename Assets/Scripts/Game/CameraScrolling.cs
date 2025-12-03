@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraEdgeScrolling : MonoBehaviour
+public class CameraScrolling : MonoBehaviour
 {
     [Header("移动设置")]
     public float maxMoveSpeed = 10f; // 摄像机最大移动速度

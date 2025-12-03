@@ -9,7 +9,8 @@ public class PlayController : MonoBehaviour
 {
     public float speed = 5f;
     public Animator animator;
-    public Camera playerCamera;
+    private Camera playerCamera;
+    public Camera miniMapCamera;
     
     public float maxHealth = 100f;
     public float currentHealth = 100f;
@@ -18,10 +19,11 @@ public class PlayController : MonoBehaviour
     public float currentMaxExp = 100f;
     public float currentExp = 0f;
 
+    public bool isInGame1 = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        if (!playerCamera)
+        if (!playerCamera && isInGame1)
         {
             playerCamera = Camera.main;
         }
@@ -48,7 +50,9 @@ public class PlayController : MonoBehaviour
         
         transform.Translate(direction * speed * Time.deltaTime);
         
-        //playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        if(isInGame1)
+            playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        miniMapCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         
         if(currentExp>= currentMaxExp)
         {
