@@ -11,14 +11,23 @@ public class BossEnemy : EnemyBase
     private List<Vector3> pathPointsList = new List<Vector3>(); // 存储路径点的列表
     private int currentPathIndex = 0; // 当前路径点索引
     
+    [Header("路径寻路设置")]
     public float pathUpdateInterval = 1f; // 路径更新间隔时间
     public float pathUpdateTimer = 0f; // 路径更新的计时器
+    public float chaseDistance;
+    
+    
+    
+    [Header("攻击设置")]
+     public float attackDistance;
+    public float meleeAttackDamage = 20f;
+    public float attackCooldownDuration = 1.5f; // 攻击冷却时间
+    private bool isAttacking = true;
+    public LayerMask playerLayerMask;
     
     public Transform playerTransform;
-
-    public float attackDistance;
-    public float chaseDistance;
-
+    public SpriteRenderer spriteRenderer;
+    
     private void Awake()
     {
         seeker = GetComponent<Seeker>();
@@ -36,9 +45,25 @@ public class BossEnemy : EnemyBase
             
             if(pathPointsList == null || pathPointsList.Count == 0) return;
 
+            float x = playerTransform.position.x - transform.position.x;
+            if (x > 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
+            
             if (distanceToPlayer < attackDistance)
             {
-                //TODO：攻击玩家
+                if (isAttacking)
+                {
+                    isAttacking = false;
+                    //TODO：攻击玩家
+                    Debug.Log("Boss Enemy Attack Player!");
+                    StartCoroutine(AttackCoolDownDuration());
+                }
             }
             else
             {
@@ -67,7 +92,7 @@ public class BossEnemy : EnemyBase
 
     private void AutoPath()
     {
-        pathUpdateInterval += Time.deltaTime;
+        pathUpdateTimer += Time.deltaTime;
 
         if (pathUpdateTimer >= pathUpdateInterval)
         {
@@ -95,8 +120,6 @@ public class BossEnemy : EnemyBase
         
     }
     
-    
-    
     private void GeneratePath(Vector3 target)
     {
         currentPathIndex = 0;
@@ -114,6 +137,28 @@ public class BossEnemy : EnemyBase
 
     }
 
+
+    // 近战攻击事件
+    public void MeleeAttackAnimEvent()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackDistance, playerLayerMask);
+        foreach (var hitCollider in hitColliders)
+        {
+            PlayController player = hitCollider.GetComponent<PlayController>();
+            if (player)
+            {
+                player.TakeDamage(meleeAttackDamage);
+            }
+        }
+    }
+
+    IEnumerator AttackCoolDownDuration()
+    {
+        yield return new WaitForSeconds(attackCooldownDuration);
+        isAttacking = true;
+    }
+    
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

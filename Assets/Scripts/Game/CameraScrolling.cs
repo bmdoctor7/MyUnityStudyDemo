@@ -10,7 +10,7 @@ public class CameraScrolling : MonoBehaviour
     public float smoothFactor = 5f; // 平滑移动因子，值越大移动越平缓
     
     [Header("缩放设置")]
-    private float tarZoom;
+    private float _tarZoom;
     public float zoomSpeed = 1f;
     public float zoomSmooth = 10f;
     public float zoomMin,zoomMax;
@@ -24,13 +24,14 @@ public class CameraScrolling : MonoBehaviour
     public float maxY = 10f;
     
     
-    private Camera mainCamera;
-    private Vector3 targetPosition;
+    private Camera _mainCamera;
+    private Vector3 _targetPosition;
     
     void Start()
     {
-        mainCamera = GetComponent<Camera>();
-        targetPosition = transform.position;
+        _mainCamera = GetComponent<Camera>();
+        _targetPosition = transform.position;
+        _tarZoom = _mainCamera.orthographicSize;
     }
     
     
@@ -40,14 +41,14 @@ public class CameraScrolling : MonoBehaviour
         SmoothMoveCamera();
         
         HandleMouseZoom();
-        mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, tarZoom, zoomSmooth * Time.deltaTime);
+        _mainCamera.orthographicSize = Mathf.Lerp(_mainCamera.orthographicSize, _tarZoom, zoomSmooth * Time.deltaTime);
     }
     
     
     void HandleEdgeScrolling()
     {
         // 获取鼠标在屏幕上的位置（坐标范围 0~1）[citation:1]
-        Vector3 mouseViewportPos = mainCamera.ScreenToViewportPoint(Input.mousePosition);
+        Vector3 mouseViewportPos = _mainCamera.ScreenToViewportPoint(Input.mousePosition);
         
         // 转换为以屏幕中心为原点的坐标（范围 -1~1）
         Vector2 moveInput = new Vector2(
@@ -70,16 +71,16 @@ public class CameraScrolling : MonoBehaviour
             moveDirection.y = Mathf.Sign(moveInput.y) * Mathf.InverseLerp(edgeThreshold, 1f, Mathf.Abs(moveInput.y));
         }
         
-        float zoomFactor = mainCamera.orthographicSize / zoomMax;
+        float zoomFactor = _mainCamera.orthographicSize / zoomMax;
         // 计算目标位置
         Vector3 moveAmount = new Vector3(moveDirection.x, moveDirection.y, 0) * maxMoveSpeed* zoomFactor * Time.deltaTime;
-        targetPosition += moveAmount;
+        _targetPosition += moveAmount;
 
         // 应用边界限制
         if (enableBounds)
         {
-            targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX);
-            targetPosition.y = Mathf.Clamp(targetPosition.y, minY, maxY);
+            _targetPosition.x = Mathf.Clamp(_targetPosition.x, minX, maxX);
+            _targetPosition.y = Mathf.Clamp(_targetPosition.y, minY, maxY);
         }
     }
     
@@ -87,7 +88,7 @@ public class CameraScrolling : MonoBehaviour
     void SmoothMoveCamera()
     {
         // 使用插值平滑移动摄像机
-        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, _targetPosition, smoothFactor * Time.deltaTime);
     }
     
     
@@ -97,8 +98,8 @@ public class CameraScrolling : MonoBehaviour
 
         if(scroll != 0)
         {
-            tarZoom -= scroll * zoomSpeed;
-            tarZoom = Mathf.Clamp(tarZoom, zoomMin, zoomMax);
+            _tarZoom -= scroll * zoomSpeed;
+            _tarZoom = Mathf.Clamp(_tarZoom, zoomMin, zoomMax);
             //float b = (tarZoom + 3) / 6f;
             //cameraImagePos.localScale = new Vector3(b, b, 1);
         }
