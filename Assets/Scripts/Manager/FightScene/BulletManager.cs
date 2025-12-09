@@ -77,12 +77,12 @@ public class BulletManager : SingletonMonoBase<BulletManager>
             //Debug.Log("BulletManager: Despawn called!");
             pool.Release(instance);
         }
-        // else
-        // {
-        //     // 未受管实例, 直接销毁以避免泄漏
-        //     Debug.LogWarning("BulletManager.Despawn: 非池管理对象被回收, 执行 Destroy.");
-        //     Destroy(instance);
-        // }
+        else
+        {
+            // 未受管实例, 直接销毁以避免泄漏
+            Debug.LogWarning("BulletManager.Despawn: 非池管理对象被回收, 执行 Destroy.");
+            Destroy(instance);
+        }
     }
 
     // 预热若干个对象到池中

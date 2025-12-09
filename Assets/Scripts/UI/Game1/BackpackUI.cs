@@ -82,53 +82,6 @@ public class BackpackUI : SingletonMonoBase<BackpackUI>
 
 
 
-    public void SaveBackpackData()
-    {
-        SaveSystem.Instance.SaveByJson(BACKPACK_Data_Path, InventoryManager.Instance.backpack);
-    }
-
-    public void LoadBackpackData()
-    {
-        LoadInventory();
-        RefreshAll();
-    }
-    void LoadInventory()
-    {
-        string fullPath = Path.Combine(Application.persistentDataPath, BACKPACK_Data_Path);
-        if (!File.Exists(fullPath)) return;
-
-        string json = File.ReadAllText(fullPath);
-
-        // 创建临时 ScriptableObject 实例
-        InventoryData loaded = ScriptableObject.CreateInstance<InventoryData>();
-        JsonUtility.FromJsonOverwrite(json, loaded);
-
-        // 获取当前背包
-        var current = InventoryManager.Instance.backpack;
-        if (!current)
-        {
-            // 若系统允许直接替换引用
-            InventoryManager.Instance.backpack = loaded;
-            return;
-        }
-        Debug.Log("加载背包数据成功，路径为："+fullPath);
-        // 深拷贝 slotsList
-        if (current.slotsList == null)
-            current.slotsList = new System.Collections.Generic.List<SlotData>();
-        else
-            current.slotsList.Clear();
-
-        if (loaded.slotsList != null)
-        {
-            foreach (var slot in loaded.slotsList)
-            {
-                // 若 SlotData 也是 ScriptableObject 需决定是否复用还是克隆
-                current.slotsList.Add(slot);
-            }
-        }
-        // 若不再需要临时对象可销毁
-        Destroy(loaded);
-    }
     
     
     

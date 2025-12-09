@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class PlayController : MonoBehaviour
+public class PlayController : SingletonMonoBase<PlayController>
 {
+    private PlayController(){}
+    
     public float speed = 5f;
     public Animator animator;
     private Camera playerCamera;
@@ -22,6 +25,9 @@ public class PlayController : MonoBehaviour
     public bool isInGame1 = false;
     private void Start()
     {
+        if(SceneManager.GetActiveScene().name=="LiveScene")
+            isInGame1 = true;
+        
         animator = GetComponent<Animator>();
         if (!playerCamera && isInGame1)
         {
@@ -52,7 +58,8 @@ public class PlayController : MonoBehaviour
         
         if(isInGame1)
             playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-        miniMapCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        if(miniMapCamera)
+            miniMapCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         
         if(currentExp>= currentMaxExp)
         {
@@ -63,7 +70,7 @@ public class PlayController : MonoBehaviour
     #region Game1
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Pickable")
+        if (collision.CompareTag("Pickable"))
         {
             InventoryManager.Instance.AddToBackpack(collision.GetComponent<Pickable>().type);
             Destroy(collision.gameObject);
