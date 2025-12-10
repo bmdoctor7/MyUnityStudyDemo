@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//每个格子的数据
+//每个背包或物品栏格子的数据
 [System.Serializable]
 public class SlotData 
 {
@@ -17,11 +17,12 @@ public class SlotData
         this.OnChange = OnChange;
     }
     
-    
+    //判断该格子是否为空
     public bool IsEmpty()
     {
         return count == 0;
     }
+    //判断该格子是否可以继续堆叠物品
     public bool CanAddItem()
     {
         return count < item.maxCount;
@@ -34,12 +35,22 @@ public class SlotData
         return item.maxCount - count;
     }
     
+    /// <summary>
+    /// 向某个格子堆叠物品（背包中已有该物品）
+    /// </summary>
+    /// <param name="numToAdd">增加的数量</param>
     public void Add(int numToAdd = 1)
     {
         if (CanAddItem()) this.count += numToAdd;
         else Debug.LogError("该格子物品已满，无法添加");
         OnChange?.Invoke();//事件广播
     }
+    
+    /// <summary>
+    /// 向某个格子添加物品（用于空格子）
+    /// </summary>
+    /// <param name="item">新增物品</param>
+    /// <param name="count">新增物品数量</param>
     public void AddItem(ItemData item,int count =1)
     {
         this.item = item;

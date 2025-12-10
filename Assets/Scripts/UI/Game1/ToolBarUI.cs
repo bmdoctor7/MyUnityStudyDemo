@@ -20,7 +20,6 @@ public class ToolBarUI : SingletonMonoBase<ToolBarUI>
     private void Update()
     {
         ToolbarSelectControl();
-
     }
     public ToolBarSlotUI GetSelectedSlotUI()
     {
