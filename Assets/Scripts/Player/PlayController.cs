@@ -4,27 +4,45 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PlayController : SingletonMonoBase<PlayController>
 {
     private PlayController(){}
     
-    public float speed = 5f;
+    
     public Animator animator;
     private Camera playerCamera;
     public Camera miniMapCamera;
     
+    public Image cdImage;
+    public bool isCd = false;
+    public bool isCdFinish = false;
+    
+    [Header("基本属性")]
     public float maxHealth = 100f;
     public float currentHealth = 100f;
 
     public int level = 1;
     public float currentMaxExp = 100f;
     public float currentExp = 0f;
-
-    public bool isInGame1 = false;
+    
+    public float startSpeed = 5f;
+    public float speed = 5f;
+    [Header("Dash")]
+    public bool isDashing = false;
+    public float dashTime;//dash时长
+    private float dashTimeLeft;//冲锋剩余时间
+    private float lastDash = -10f;//上一次dash时间点
+    public float dashCoolDown;
+    public float dashSpeed;
+    private Vector2 dashDirection;
+    
+    private bool isInGame1 = false;
     private void Start()
     {
+        
         if(SceneManager.GetActiveScene().name=="LiveScene")
             isInGame1 = true;
         
@@ -56,6 +74,7 @@ public class PlayController : SingletonMonoBase<PlayController>
         
         transform.Translate(direction * speed * Time.deltaTime);
         
+        //主相机逻辑
         if(isInGame1)
             playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         if(miniMapCamera)
@@ -65,8 +84,72 @@ public class PlayController : SingletonMonoBase<PlayController>
         {
             LevelUp();
         }
+        
+        
+        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (Time.time >= (lastDash + dashCoolDown) && isCdFinish)
+            {
+                Debug.Log("Dash!");
+                //可以执行dash
+                ReadyToDash();
+            }
+        }
+        ChangeImageFillAmount();
     }
 
+    private void ChangeImageFillAmount()
+    {
+        if(isCd) cdImage.fillAmount -= 1f / dashCoolDown * Time.deltaTime;
+        if(cdImage.fillAmount<=0f)
+        {
+            isCd = false;
+            cdImage.fillAmount = 0f;
+            isCdFinish = true;
+        }
+    }
+    private void FixedUpdate()
+    {
+        Dash();
+    }
+    
+    void ReadyToDash()
+    {
+        isDashing = true;
+        isCdFinish = false;
+        dashTimeLeft = dashTime;
+        
+        cdImage.fillAmount = 1f;
+    }
+    void Dash()
+    {
+        if (isDashing)
+        {
+            if (!isDashing) return;
+            
+            if (dashTimeLeft > 0)
+            {
+                speed = dashSpeed;
+
+                dashTimeLeft -= Time.deltaTime;
+
+                ShadowPool.Instance.GetFromPool();
+            }
+            if (dashTimeLeft <= 0)
+            {
+                isDashing = false;
+                speed = startSpeed;
+                
+                lastDash = Time.time; //冲锋结束后才进入冷却
+                cdImage.fillAmount = 1f;
+                isCd = true;
+            }
+        }
+    }
+    
+    
+    
     #region Game1
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -89,6 +172,7 @@ public class PlayController : SingletonMonoBase<PlayController>
     }
     #endregion
     
+    #region Game2
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -98,7 +182,7 @@ public class PlayController : SingletonMonoBase<PlayController>
         }
     }
 
-    #region Game2
+    
     public float GetNextLevelExp()
     {
         return (currentMaxExp*level*1.2f) + 77f ;
