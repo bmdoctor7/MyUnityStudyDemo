@@ -1,4 +1,4 @@
 public enum EventType
 {
-    Loading,
+    Loading,DashCooldownStart,
 }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+
 public class PlayController : SingletonMonoBase<PlayController>
 {
     private PlayController(){}
@@ -17,8 +18,7 @@ public class PlayController : SingletonMonoBase<PlayController>
     public Camera miniMapCamera;
     
     public Image cdImage;
-    public bool isCd = false;
-    public bool isCdFinish = false;
+    public bool isCdFinish = true;
     
     [Header("基本属性")]
     public float maxHealth = 100f;
@@ -42,6 +42,7 @@ public class PlayController : SingletonMonoBase<PlayController>
     private bool isInGame1 = false;
     private void Start()
     {
+        isCdFinish = true;
         
         if(SceneManager.GetActiveScene().name=="LiveScene")
             isInGame1 = true;
@@ -86,29 +87,18 @@ public class PlayController : SingletonMonoBase<PlayController>
         }
         
         
-        
+        //斯安威斯坦
         if (Input.GetKeyDown(KeyCode.K))
         {
-            if (Time.time >= (lastDash + dashCoolDown) && isCdFinish)
+            if (Time.time >= (lastDash + dashCoolDown)  && isCdFinish)
             {
-                Debug.Log("Dash!");
                 //可以执行dash
                 ReadyToDash();
             }
         }
-        ChangeImageFillAmount();
+        
     }
-
-    private void ChangeImageFillAmount()
-    {
-        if(isCd) cdImage.fillAmount -= 1f / dashCoolDown * Time.deltaTime;
-        if(cdImage.fillAmount<=0f)
-        {
-            isCd = false;
-            cdImage.fillAmount = 0f;
-            isCdFinish = true;
-        }
-    }
+    
     private void FixedUpdate()
     {
         Dash();
@@ -117,7 +107,10 @@ public class PlayController : SingletonMonoBase<PlayController>
     void ReadyToDash()
     {
         isDashing = true;
+        
+        //ui是否冷却完毕
         isCdFinish = false;
+        
         dashTimeLeft = dashTime;
         
         cdImage.fillAmount = 1f;
@@ -143,7 +136,9 @@ public class PlayController : SingletonMonoBase<PlayController>
                 
                 lastDash = Time.time; //冲锋结束后才进入冷却
                 cdImage.fillAmount = 1f;
-                isCd = true;
+                
+                //冷却UI逻辑（冷却完成后isCdFinish为True）
+                EventManager.Broadcast(EventType.DashCooldownStart, dashCoolDown);
             }
         }
     }
