@@ -1355,11 +1355,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8820be2a7b444146b6b33712200d128, type: 3}
---- !u!1 &485426971 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2325994188993098617, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
-  m_PrefabInstance: {fileID: 562514769}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &486479656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1803,18 +1798,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 5932822150515804876, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
-      propertyPath: m_FillAmount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6804577581389094783, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6804577581389094783, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -370
-      objectReference: {fileID: 0}
     - target: {fileID: 8845997773295837912, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1898,35 +1881,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2325994188993098617, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 562514773}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
 --- !u!114 &562514770 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5932822150515804876, guid: 1213992c3d7705341b6ced42db260a0a, type: 3}
   m_PrefabInstance: {fileID: 562514769}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 485426971}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &562514773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 485426971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ceb7646207d834fbfcb2d468e43fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashImage: {fileID: 562514770}
 --- !u!224 &577192515 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4981623961898111395, guid: ee99727702d1a9341bc1115bf6117c55, type: 3}
